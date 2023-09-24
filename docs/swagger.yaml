@@ -1,0 +1,142 @@
+basePath: /api
+consumes:
+- application/json
+definitions:
+  handler.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      error:
+        type: string
+    type: object
+  service.Event:
+    properties:
+      audioQuality:
+        example:
+        - Low
+        - High
+        items:
+          type: string
+        type: array
+      date:
+        example: "2023-04-20T14:00:00Z"
+        type: string
+      description:
+        example: EU Summit 2023
+        type: string
+      id:
+        example: 123
+        type: integer
+      invitees:
+        example:
+        - one@email.com
+        - two@email.com
+        items:
+          type: string
+        type: array
+      languages:
+        example:
+        - Lithuanian
+        - French
+        items:
+          type: string
+        type: array
+      name:
+        example: EU Summit
+        type: string
+      videoQuality:
+        example:
+        - 720p
+        - 1080p
+        items:
+          type: string
+        type: array
+    required:
+    - audioQuality
+    - date
+    - invitees
+    - languages
+    - name
+    - videoQuality
+    type: object
+  service.EventCreate:
+    properties:
+      audioQuality:
+        example:
+        - Low
+        - High
+        items:
+          type: string
+        type: array
+      date:
+        example: "2023-04-20T14:00:00Z"
+        type: string
+      description:
+        example: EU Summit 2023
+        type: string
+      invitees:
+        example:
+        - one@email.com
+        - two@email.com
+        items:
+          type: string
+        type: array
+      languages:
+        example:
+        - Lithuanian
+        - French
+        items:
+          type: string
+        type: array
+      name:
+        example: EU Summit
+        type: string
+      videoQuality:
+        example:
+        - 720p
+        - 1080p
+        items:
+          type: string
+        type: array
+    required:
+    - audioQuality
+    - date
+    - invitees
+    - languages
+    - name
+    - videoQuality
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: REST API that allows users to create events
+  title: Event API
+  version: "1.0"
+paths:
+  /events:
+    post:
+      consumes:
+      - application/json
+      description: Create a new event
+      parameters:
+      - description: Event data
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/service.EventCreate'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/service.Event'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handler.ErrorResponse'
+      summary: Create a new event
+      tags:
+      - events
+swagger: "2.0"
